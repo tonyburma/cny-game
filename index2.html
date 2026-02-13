@@ -6,7 +6,6 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
     />
-
     <title>CNY 2026 Emoji Challenge</title>
 
     <link
@@ -39,12 +38,6 @@
         border-radius: 10px;
         visibility: hidden;
       }
-      .slides .fragment {
-        opacity: 1 !important;
-        visibility: visible !important;
-        pointer-events: auto !important;
-        cursor: pointer;
-      }
       .fragment.revealed .answer {
         visibility: visible;
       }
@@ -57,7 +50,7 @@
       /* Scoreboard Styling */
       #scoreboard {
         position: fixed;
-        top: 20px;
+        bottom: 20px;
         right: 20px;
         z-index: 1000;
         display: flex;
@@ -87,6 +80,19 @@
         font-size: 12px;
         text-align: center;
       }
+
+      /* Final Results Table */
+      .results-table {
+        margin: 0 auto;
+        border-collapse: collapse;
+        width: 80%;
+        color: #b30000;
+        font-size: 1.5em;
+      }
+      .results-table td {
+        border: 2px solid #b30000;
+        padding: 20px;
+      }
     </style>
   </head>
   <body>
@@ -110,7 +116,11 @@
             <h1>🧧 2026 🧧</h1>
             <h2>Guess the Emoji</h2>
             <p>Year of the Horse Edition</p>
-            <p><small>Press Space to Start</small></p>
+            <p>
+              <small
+                >Click Emojis to Reveal Answer | Use Buttons for Points</small
+              >
+            </p>
           </div>
         </section>
 
@@ -119,117 +129,107 @@
           <div class="emoji-box">🐎 🏃‍♂️ 🏁 🏆</div>
           <div class="fragment">
             <div class="answer">
-              马到成功 <br />
-              (Instant Success)
+              马到成功 [cite: 25, 29, 30]<br />(Instant Success)
             </div>
           </div>
         </section>
-
         <section>
           <h3>Round 2</h3>
           <div class="emoji-box">🐉 🐎 🔋 🔥</div>
           <div class="fragment">
             <div class="answer">
-              龙马精神 <br />
-              (Spirit & Vitality)
+              龙马精神 [cite: 31, 32, 37]<br />(Spirit & Vitality)
             </div>
           </div>
         </section>
-
         <section>
           <h3>Round 3</h3>
           <div class="emoji-box">🐎 ➕ 🦁 💃 🥁</div>
           <div class="fragment">
             <div class="answer">
-              Horse & Lion Dance <br />
-              (马狮舞)
+              Horse & Lion Dance [cite: 24, 28]<br />(马狮舞)
             </div>
           </div>
         </section>
-
         <section>
           <h3>Round 4</h3>
           <div class="emoji-box">🗓️ 🗓️ 🐟 ➕</div>
           <div class="fragment">
             <div class="answer">
-              年年有余 <br />
-              (Abundance Every Year)
+              年年有余 [cite: 9, 19]<br />(Abundance Every Year)
             </div>
           </div>
         </section>
-
         <section>
           <h3>Round 5</h3>
           <div class="emoji-box">💪 ⚡ 🩺 🍎</div>
           <div class="fragment">
-            <div class="answer">
-              身体健康 <br />
-              (Good Health)
-            </div>
+            <div class="answer">身体健康 [cite: 4, 16]<br />(Good Health)</div>
           </div>
         </section>
-
         <section>
           <h3>Round 6</h3>
           <div class="emoji-box">🐎 🆙 🐒 👑</div>
           <div class="fragment">
             <div class="answer">
-              马上封侯 <br />
-              (Immediate Promotion)
+              马上封侯 [cite: 35, 39, 40]<br />(Immediate Promotion)
             </div>
           </div>
         </section>
-
         <section>
           <h3>Round 7</h3>
           <div class="emoji-box">1️⃣ 🐎 🏃‍♂️ 🚩</div>
           <div class="fragment">
             <div class="answer">
-              一马当先 <br />
-              (Taking the Lead)
+              一马当先 [cite: 33, 38]<br />(Taking the Lead)
             </div>
           </div>
         </section>
-
         <section>
           <h3>Round 8</h3>
           <div class="emoji-box">🦁 🥬 🧧 😋</div>
           <div class="fragment">
-            <div class="answer">
-              采青 <br />
-              (Plucking the Green)
-            </div>
+            <div class="answer">采青 [cite: 42]<br />(Plucking the Green)</div>
           </div>
         </section>
-
         <section>
           <h3>Round 9</h3>
           <div class="emoji-box">🎊 🧧 💰 📈</div>
           <div class="fragment">
             <div class="answer">
-              恭喜发财 <br />
-              (Prosperity and Wealth)
+              恭喜发财 [cite: 3, 15]<br />(Prosperity and Wealth)
             </div>
           </div>
         </section>
-
         <section>
           <h3>Round 10</h3>
           <div class="emoji-box">🪜 🆙 🏢 ✨</div>
           <div class="fragment">
             <div class="answer">
-              步步高升 <br />
-              (Success at Every Step)
+              步步高升 [cite: 6, 18]<br />(Success at Every Step)
             </div>
           </div>
         </section>
 
-        <section data-background-color="#ffd700">
-          <h1 style="color: #b30000">🎊 CONGRATULATIONS! 🎊</h1>
-          <p style="color: #b30000">
-            Table Winners, please claim your Hong Bao!
+        <section data-background-color="#ffd700" onfocus="updateFinalScores()">
+          <h1 style="color: #b30000">🎊 FINAL SCORES 🎊</h1>
+          <table class="results-table">
+            <tr>
+              <td>Team 1</td>
+              <td><span id="f1">0</span> pts</td>
+            </tr>
+            <tr>
+              <td>Team 2</td>
+              <td><span id="f2">0</span> pts</td>
+            </tr>
+            <tr>
+              <td>Team 3</td>
+              <td><span id="f3">0</span> pts</td>
+            </tr>
+          </table>
+          <p style="color: #b30000; margin-top: 20px">
+            Table Winners, please claim your Hong Bao! 🧧
           </p>
-          <div class="emoji-box">🧧 🧧 🧧</div>
         </section>
       </div>
     </div>
@@ -244,12 +244,12 @@
         document.getElementById(`f${team}`).innerText = scores[team];
       }
 
-      Reveal.initialize({
-        hash: true,
-        center: true,
-        transition: "convex", // Options: none/fade/slide/convex/concave/zoom
-      });
+      Reveal.initialize({ hash: true, center: true, transition: "convex" });
 
+      // document.querySelector(".slides").addEventListener("click", (event) => {
+      //   const answerArea = event.target.closest(".fragment");
+      //   if (answerArea) answerArea.classList.add("revealed");
+      // });
       document.querySelector(".slides").addEventListener("click", (event) => {
         const answerArea = event.target.closest(".fragment");
         if (!answerArea) {
