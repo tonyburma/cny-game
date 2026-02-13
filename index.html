@@ -68,6 +68,16 @@
         border-radius: 10px;
         border: 2px solid #ffd700;
       }
+      body.final-slide #scoreboard {
+        top: 50%;
+        right: auto;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 28px;
+        gap: 16px;
+        border-width: 3px;
+        min-width: 320px;
+      }
       .team-btn {
         background: #ffd700;
         color: #b30000;
@@ -79,6 +89,11 @@
         font-size: 14px;
         transition: transform 0.1s;
       }
+      body.final-slide .team-btn {
+        font-size: 24px;
+        padding: 16px 24px;
+        border-radius: 10px;
+      }
       .team-btn:active {
         transform: scale(0.9);
       }
@@ -87,9 +102,28 @@
         font-size: 12px;
         text-align: center;
       }
+      body.final-slide .score-display {
+        font-size: 28px;
+        font-weight: bold;
+      }
+      #exit-game-btn {
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        z-index: 1000;
+        background: #ffd700;
+        color: #b30000;
+        border: none;
+        border-radius: 50px;
+        padding: 10px 14px;
+        font-weight: bold;
+        cursor: pointer;
+      }
     </style>
   </head>
   <body>
+    <button id="exit-game-btn" type="button">C</button>
+
     <div id="scoreboard">
       <div class="score-display">Live Scores</div>
       <button class="team-btn" onclick="addScore(1)">
@@ -225,8 +259,8 @@
         </section>
 
         <section data-background-color="#ffd700">
-          <h1 style="color: #b30000">🎊 CONGRATULATIONS! 🎊</h1>
-          <p style="color: #b30000">
+          <h1 style="color: #b30000">CONGRATULATIONS! 🎊</h1>
+          <p style="color: #b30000; margin-top: 120px">
             Table Winners, please claim your Hong Bao!
           </p>
           <div class="emoji-box">🧧 🧧 🧧</div>
@@ -249,6 +283,41 @@
         center: true,
         transition: "convex", // Options: none/fade/slide/convex/concave/zoom
       });
+
+      const exitButton = document.getElementById("exit-game-btn");
+
+      function jumpToFinalSlide() {
+        const slides = document.querySelectorAll(".slides section");
+        const finalSlide = slides[slides.length - 1];
+        if (!finalSlide) {
+          return;
+        }
+
+        const finalIndices = Reveal.getIndices(finalSlide);
+        Reveal.slide(finalIndices.h, finalIndices.v || 0);
+      }
+
+      function updateExitButtonVisibility() {
+        const slides = document.querySelectorAll(".slides section");
+        const currentSlide = Reveal.getCurrentSlide();
+        const finalSlide = slides[slides.length - 1];
+
+        exitButton.style.display =
+          currentSlide === finalSlide ? "none" : "block";
+        document.body.classList.toggle(
+          "final-slide",
+          currentSlide === finalSlide,
+        );
+      }
+
+      exitButton.addEventListener("click", jumpToFinalSlide);
+      document.addEventListener("keydown", (event) => {
+        if (event.key && event.key.toLowerCase() === "e") {
+          jumpToFinalSlide();
+        }
+      });
+      Reveal.on("ready", updateExitButtonVisibility);
+      Reveal.on("slidechanged", updateExitButtonVisibility);
 
       document.querySelector(".slides").addEventListener("click", (event) => {
         const answerArea = event.target.closest(".fragment");
